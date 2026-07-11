@@ -1,0 +1,287 @@
+# Hackathon submission: Agentic AI Migration Factory
+# ECC -> S/4HANA migration simulation built as a neuro-san agent network.
+#
+# The schema specifications for this file are documented here:
+# https://github.com/cognizant-ai-lab/neuro-san/blob/main/docs/agent_hocon_reference.md
+
+{
+    # Load the shared LLM configuration from a single source of truth.
+    # Note that the file path here is relative to the root level of the repo.
+    include "config/llm_config.hocon",
+
+    "metadata": {
+        "description": "Agentic AI Migration Factory: a 9-agent pipeline that simulates an SAP ECC -> S/4HANA data migration (Discovery, Data Quality, Auto-Fix, Mapping, Risk, Migration Execution, Validation, Monitoring, Reporting) over sample vendor/customer/finance CSVs.",
+        "tags": ["hackathon", "sap", "migration", "erp"],
+        "sample_queries": [
+            "Run the full ECC to S/4HANA migration and give me the executive summary.",
+            "Discover and profile the uploaded ECC files.",
+            "What data quality issues did you find, and what's the migration risk?"
+        ]
+    },
+
+    "tools": [
+        # ---------------------------------------------------------------
+        # Front Man: talks to the user, drives the 9-agent pipeline below
+        # in strict order, and summarizes the final result.
+        #
+        # Disqualifications from being a front man:
+        #   1) Cannot use a CodedTool "class" definition
+        #   2) Cannot use a Tool "toolbox" definition
+        # ---------------------------------------------------------------
+        {
+            "name": "MigrationFactory",
+
+            "function": {
+                "description": """
+                    I orchestrate an end-to-end SAP ECC -> S/4HANA data migration simulation
+                    across nine specialist agents: Discovery, Data Quality, Auto-Fix, Mapping,
+                    Risk, Migration Execution, Validation, Monitoring, and Reporting.
+                    Ask me to run the migration, or ask about any single stage.
+                    """
+            },
+
+            "instructions": """
+            You are the front-man orchestrator for the Agentic AI Migration Factory.
+
+                        SCOPE: You ONLY handle topics related to this SAP ECC -> S/4HANA migration
+            simulation -- running the 9-stage pipeline (Discovery, Data Quality,
+            Auto-Fix, Mapping, Risk, Migration Execution, Validation, Monitoring,
+            Reporting), explaining any single stage's results, discussing the sample
+            vendor/customer/finance data, or general questions about SAP ECC/S4HANA
+            migration concepts.
+
+            If the user asks anything outside this scope (general knowledge, other
+            people/companies/topics, coding help unrelated to this migration, etc.),
+            do NOT answer it from your own knowledge. Instead, politely decline and
+            say you're scoped to the ECC -> S/4HANA Migration Factory, then remind them
+            what you *can* help with (e.g. "Run the full migration and give me the
+            executive summary" or "What data quality issues did you find?"). Do not
+            call any down-chain tools for out-of-scope requests.
+
+            When the user asks you to run the migration (or asks a question that requires
+            it), call your down-chain tools in this EXACT order, once each, waiting for
+            each to complete before calling the next:
+
+            1. discovery_agent
+            2. quality_agent
+            3. autofix_agent
+            4. mapping_agent
+            5. risk_agent
+            6. migration_agent
+            7. validation_agent
+            8. monitoring_agent
+            9. reporting_agent
+
+            Each tool reads and writes shared run state on its own (you do not need to
+            pass data between them yourself -- just call them in order with no arguments
+            unless the user specifies an override such as a custom data directory).
+
+            After reporting_agent returns, summarize the full run for the user in plain
+            language: mention the complexity score, the data quality issues found and
+            fixed, the mapping confidence, the risk level, the migration success rate,
+            the validation status, any monitoring events, and finally the quality
+            before/after numbers and ROI from the executive report. If the user only
+            asks about one stage (e.g. "what are the data quality issues?"), you may
+            call only the tools necessary to answer that (calling upstream tools first
+            if a downstream one depends on their output).
+            """,
+            "tools": [
+                "discovery_agent", "quality_agent", "autofix_agent", "mapping_agent",
+                "risk_agent", "migration_agent", "validation_agent", "monitoring_agent",
+                "reporting_agent"
+            ]
+        },
+
+        # ---------------------------------------------------------------
+        # 1. Discovery Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "discovery_agent",
+            "function": {
+                "description": "Analyzes uploaded ECC datasets: table/record counts, master vs transaction data, duplicate entities, and a complexity score (1-100).",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "data_dir": {
+                            "type": "string",
+                            "description": "Optional path to a folder containing vendor.csv, customer.csv, finance.csv. Defaults to the bundled sample data."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to analyze the uploaded ECC datasets. Return its JSON report verbatim.",
+            "class": "coded_tools.hackathon.agentic_migrator.discovery_tool.DiscoveryTool"
+        },
+
+        # ---------------------------------------------------------------
+        # 2. Data Quality Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "quality_agent",
+            "function": {
+        "description": "Reviews ECC data for duplicate vendors/customers, missing GST, missing emails, invalid GL accounts, and missing cost centers. Produces a Data Quality Score.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                        "focus_area": {
+                            "type": "string",
+                            "description": "Optional hint for which object to emphasize in the scan, e.g. 'vendor', 'customer', or 'finance'. Leave blank to scan all objects."
+                        }
+                    }
+                }
+            },
+                "instructions": "Call your coded tool to score data quality and enumerate defects. Return its JSON report verbatim.",
+                "class": "quality_tool.QualityTool"
+            },
+
+        # ---------------------------------------------------------------
+        # 3. Auto Fix Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "autofix_agent",
+            "function": {
+                "description": "Cleans identified quality issues: merges near-duplicate vendor names, fills missing values from reference data, corrects invalid GL accounts and cost centers.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "strategy": {
+                            "type": "string",
+                            "description": "Optional remediation strategy hint, e.g. 'conservative' or 'aggressive'. Leave blank for the default remediation rules."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to auto-remediate the data quality issues found upstream. Return its JSON report verbatim.",
+            "class": "autofix_tool.AutoFixTool"
+        },
+
+        # ---------------------------------------------------------------
+        # 4. Mapping Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "mapping_agent",
+            "function": {
+                "description": "Maps ECC fields to S/4HANA fields using the mapping table and semantic understanding, returning a mapping confidence score.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "mapping_csv": {
+                            "type": "string",
+                            "description": "Optional path to a custom ECC->S4 field mapping CSV. Defaults to the bundled mapping.csv."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to compute field mappings and confidence. Return its JSON report verbatim.",
+            "class": "mapping_tool.MappingTool"
+        },
+
+        # ---------------------------------------------------------------
+        # 5. Risk Assessment Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "risk_agent",
+            "function": {
+                "description": "Analyzes migration readiness (data quality, unmapped fields, data volume) and predicts a migration risk score and level (Low/Medium/High).",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "notes": {
+                            "type": "string",
+                            "description": "Optional additional context to factor into the risk narrative (e.g. a known cutover deadline). Leave blank if none."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to assess migration risk from upstream signals. Return its JSON report verbatim.",
+            "class": "risk_tool.RiskTool"
+        },
+
+        # ---------------------------------------------------------------
+        # 6. Migration Execution Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "migration_agent",
+            "function": {
+                "description": "Simulates the ETL run (Extract, Transform, Clean, Map, Load, Verify) and writes S/4-shaped target files (s4_vendor.csv, s4_customer.csv, s4_finance.csv).",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "output_dir": {
+                            "type": "string",
+                            "description": "Optional directory to write s4_*.csv target files to. Defaults to this tool's local output/ folder."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to execute the simulated migration ETL. Return its JSON report verbatim.",
+            "class": "migration_tool.MigrationTool"
+        },
+
+        # ---------------------------------------------------------------
+        # 7. Validation Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "validation_agent",
+            "function": {
+                "description": "Validates record counts and financial totals after migration and reports PASS/FAIL.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "strict": {
+                            "type": "boolean",
+                            "description": "Optional. If true, treat any SKIPPED check as a FAIL rather than a soft pass. Defaults to false."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to validate the migrated data. Return its JSON report verbatim.",
+            "class": "validation_tool.ValidationTool"
+        },
+ 
+
+        # ---------------------------------------------------------------
+        # 8. Monitoring Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "monitoring_agent",
+            "function": {
+                "description": "Monitors migration execution for timeouts, API failures, load failures, and data mismatches; recommends retry or rollback.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "lookback_minutes": {
+                            "type": "string",
+                            "description": "Optional window, in minutes, of recent execution activity to inspect. Leave blank to inspect the current run only."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to surface operational issues and recommended remediation. Return its JSON report verbatim.",
+            "class": "monitoring_tool.MonitoringTool"
+        },
+
+        # ---------------------------------------------------------------
+        # 9. Reporting Agent
+        # ---------------------------------------------------------------
+        {
+            "name": "reporting_agent",
+            "function": {
+                "description": "Generates the final executive report: quality before/after, migration success rate, and ROI.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "audience": {
+                            "type": "string",
+                            "description": "Optional intended audience for the summary tone, e.g. 'executive' or 'technical'. Leave blank for a general executive summary."
+                        }
+                    }
+                }
+            },
+            "instructions": "Call your coded tool to produce the final executive summary. Return its JSON report verbatim.",
+            "class": "reporting_tool.ReportingTool"
+        }
+    ]
+}
+
+ 

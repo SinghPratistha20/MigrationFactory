@@ -1,0 +1,5 @@
+CustomerID,CustomerName,Email,Status
+C001,TCS,tcs@test.com,Active
+C002,Infosys,,Active
+C003,Wipro,wipro@test.com,Inactive
+C004,TCS,tcs@test.com,Active

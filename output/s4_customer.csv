@@ -1,0 +1,4 @@
+BusinessPartnerID,BP_Name,ContactEmail,Status
+C001,TCS,tcs@test.com,Active
+C002,Infosys,unknown@pending-review.com,Active
+C003,Wipro,wipro@test.com,Inactive

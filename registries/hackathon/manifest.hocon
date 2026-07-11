@@ -1,0 +1,4 @@
+{
+    # Hackathon submission networks
+    "hackathon/agentic_migrator.hocon": true,
+}
