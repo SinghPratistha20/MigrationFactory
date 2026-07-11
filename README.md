@@ -1,6 +1,6 @@
 # Agentic AI Migration Factory
 
-#Proposed by: Pratistha(2430180) & Alankriti Dadlani(2444848)
+Proposed by: Pratistha(2430180) & Alankriti Dadlani(2444848)
 
 A 9-agent SAP ECC → S/4HANA data migration simulation, built as a real
 [neuro-san](https://github.com/cognizant-ai-lab/neuro-san) agent network.
