@@ -1,0 +1,183 @@
+<svg width="1000" height="1780" viewBox="0 0 1000 1780" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+
+  <!-- ============ BACKGROUND (light theme, hardcoded white) ============ -->
+  <rect x="0" y="0" width="1000" height="1780" fill="#FFFFFF"/>
+
+  <!-- ============ ARROWHEAD MARKER ============ -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#444441" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- ============ TITLE ============ -->
+  <text x="500" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#2C2C2A">ECC to S/4HANA Migration Accelerator - Activity &amp; Flow Diagram</text>
+  <text x="500" y="62" text-anchor="middle" font-size="13" fill="#5F5E5A">Streamlit frontend + Neuro SAN multi-agent orchestration + Excel output</text>
+
+  <!-- ============ SWIMLANE BACKGROUNDS ============ -->
+  <!-- Lane 1: Streamlit UI -->
+  <rect x="20" y="150" width="320" height="1560" fill="#EAF3FC" stroke="#B4B2A9" stroke-width="1"/>
+  <!-- Lane 2: Neuro SAN Agents -->
+  <rect x="340" y="150" width="320" height="1560" fill="#F2F0FD" stroke="#B4B2A9" stroke-width="1"/>
+  <!-- Lane 3: Output & Storage -->
+  <rect x="660" y="150" width="320" height="1560" fill="#FCEEE8" stroke="#B4B2A9" stroke-width="1"/>
+
+  <!-- ============ LANE HEADERS ============ -->
+  <rect x="20" y="80" width="320" height="70" fill="#DCEBFA" stroke="#8FB8E6" stroke-width="1"/>
+  <text x="180" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#0C447C">Streamlit UI (frontend)</text>
+  <!-- Logo placeholder: Streamlit -->
+  <rect x="150" y="112" width="60" height="34" fill="#FAFAF8" stroke="#9C9A92" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="180" y="132" text-anchor="middle" font-size="10" font-style="italic" fill="#8F8D85">Streamlit logo</text>
+
+  <rect x="340" y="80" width="320" height="70" fill="#E4DFFB" stroke="#A79BE8" stroke-width="1"/>
+  <text x="500" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#3C3489">Neuro SAN multi-agent layer</text>
+  <!-- Logo placeholder: Neuro SAN -->
+  <rect x="470" y="112" width="60" height="34" fill="#FAFAF8" stroke="#9C9A92" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="500" y="132" text-anchor="middle" font-size="10" font-style="italic" fill="#8F8D85">Neuro SAN logo</text>
+
+  <rect x="660" y="80" width="320" height="70" fill="#FBE3D8" stroke="#E8A57F" stroke-width="1"/>
+  <text x="820" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#993C1D">Output &amp; storage layer</text>
+  <!-- Logo placeholder: Output platform (e.g. Excel / Cognizant AI Lab) -->
+  <rect x="790" y="112" width="60" height="34" fill="#FAFAF8" stroke="#9C9A92" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="820" y="132" text-anchor="middle" font-size="10" font-style="italic" fill="#8F8D85">Excel / lab logo</text>
+
+  <!-- ============ START NODE ============ -->
+  <circle cx="180" cy="200" r="22" fill="#5F5E5A"/>
+  <text x="180" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#FFFFFF">Start</text>
+
+  <!-- ============ BOX: Upload CSV files ============ -->
+  <rect x="50" y="250" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#378ADD" stroke-width="1.4"/>
+  <text x="180" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#042C53">Upload CSV files</text>
+  <text x="180" y="293" text-anchor="middle" font-size="11" fill="#185FA5">Data + mapping + validation +</text>
+  <text x="180" y="308" text-anchor="middle" font-size="11" fill="#185FA5">dedup rule files (file_uploader)</text>
+  <!-- Logo placeholder: source system (optional, e.g. SAP ECC) -->
+  <rect x="230" y="255" width="66" height="30" fill="#FAFAF8" stroke="#9C9A92" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="263" y="273" text-anchor="middle" font-size="9" font-style="italic" fill="#8F8D85">source</text>
+  <text x="263" y="283" text-anchor="middle" font-size="9" font-style="italic" fill="#8F8D85">logo</text>
+
+  <line x1="180" y1="222" x2="180" y2="248" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Preview schema & rules ============ -->
+  <rect x="50" y="360" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#378ADD" stroke-width="1.4"/>
+  <text x="180" y="385" text-anchor="middle" font-size="14" font-weight="bold" fill="#042C53">Preview schema &amp; rules</text>
+  <text x="180" y="403" text-anchor="middle" font-size="11" fill="#185FA5">Source vs destination structure,</text>
+  <text x="180" y="418" text-anchor="middle" font-size="11" fill="#185FA5">mapping and validation rules</text>
+  <line x1="180" y1="326" x2="180" y2="358" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Click Run Migration ============ -->
+  <rect x="50" y="470" width="260" height="70" rx="8" fill="#FFFFFF" stroke="#378ADD" stroke-width="1.4"/>
+  <text x="180" y="497" text-anchor="middle" font-size="14" font-weight="bold" fill="#042C53">Click "Run migration"</text>
+  <text x="180" y="516" text-anchor="middle" font-size="11" fill="#185FA5">Streamlit button trigger</text>
+  <line x1="180" y1="436" x2="180" y2="468" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: lane1 -> lane2 (Mapping agent) -->
+  <path d="M310 505 L400 505 L400 560" fill="none" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Mapping Agent ============ -->
+  <rect x="370" y="560" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#7F77DD" stroke-width="1.4"/>
+  <text x="500" y="585" text-anchor="middle" font-size="14" font-weight="bold" fill="#26215C">Mapping agent</text>
+  <text x="500" y="603" text-anchor="middle" font-size="11" fill="#534AB7">Applies field-mapping logic from</text>
+  <text x="500" y="618" text-anchor="middle" font-size="11" fill="#534AB7">the mapping CSV to each record</text>
+
+  <line x1="500" y1="636" x2="500" y2="668" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Validation Agent ============ -->
+  <rect x="370" y="670" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#7F77DD" stroke-width="1.4"/>
+  <text x="500" y="695" text-anchor="middle" font-size="14" font-weight="bold" fill="#26215C">Validation agent</text>
+  <text x="500" y="713" text-anchor="middle" font-size="11" fill="#534AB7">Checks every record against each</text>
+  <text x="500" y="728" text-anchor="middle" font-size="11" fill="#534AB7">rule in the validation CSV</text>
+
+  <line x1="500" y1="746" x2="500" y2="775" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ DECISION: Valid? ============ -->
+  <polygon points="500,780 580,835 500,890 420,835" fill="#FFF4DE" stroke="#BA7517" stroke-width="1.4"/>
+  <text x="500" y="830" text-anchor="middle" font-size="13" font-weight="bold" fill="#633806">Valid?</text>
+  <text x="500" y="847" text-anchor="middle" font-size="10" fill="#854F0B">passes all rules</text>
+
+  <!-- Decision -> No -> lane3 Tag Invalid -->
+  <path d="M580 835 L660 835" fill="none" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="618" y="825" text-anchor="middle" font-size="10" fill="#444441">no</text>
+  <rect x="690" y="800" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#D85A30" stroke-width="1.4"/>
+  <text x="820" y="825" text-anchor="middle" font-size="14" font-weight="bold" fill="#4A1B0C">Tag: invalid</text>
+  <text x="820" y="843" text-anchor="middle" font-size="11" fill="#993C1D">Reason logged: which rule</text>
+  <text x="820" y="858" text-anchor="middle" font-size="11" fill="#993C1D">failed and why</text>
+
+  <!-- Decision -> Yes -> Dedup agent -->
+  <path d="M500 890 L500 920" fill="none" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="514" y="908" text-anchor="start" font-size="10" fill="#444441">yes</text>
+
+  <!-- ============ BOX: Dedup Agent ============ -->
+  <rect x="370" y="922" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#7F77DD" stroke-width="1.4"/>
+  <text x="500" y="947" text-anchor="middle" font-size="14" font-weight="bold" fill="#26215C">Dedup agent</text>
+  <text x="500" y="965" text-anchor="middle" font-size="11" fill="#534AB7">Checks for duplicate records</text>
+  <text x="500" y="980" text-anchor="middle" font-size="11" fill="#534AB7">using the dedup CSV logic</text>
+
+  <line x1="500" y1="998" x2="500" y2="1030" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ DECISION: Duplicate? ============ -->
+  <polygon points="500,1035 580,1090 500,1145 420,1090" fill="#FFF4DE" stroke="#BA7517" stroke-width="1.4"/>
+  <text x="500" y="1085" text-anchor="middle" font-size="13" font-weight="bold" fill="#633806">Duplicate?</text>
+  <text x="500" y="1102" text-anchor="middle" font-size="10" fill="#854F0B">matches existing record</text>
+
+  <!-- Decision -> Yes -> lane3 Tag Duplicate -->
+  <path d="M580 1090 L660 1090" fill="none" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="618" y="1080" text-anchor="middle" font-size="10" fill="#444441">yes</text>
+  <rect x="690" y="1055" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#D85A30" stroke-width="1.4"/>
+  <text x="820" y="1080" text-anchor="middle" font-size="14" font-weight="bold" fill="#4A1B0C">Tag: duplicate</text>
+  <text x="820" y="1098" text-anchor="middle" font-size="11" fill="#993C1D">Reason logged: which record</text>
+  <text x="820" y="1113" text-anchor="middle" font-size="11" fill="#993C1D">it duplicates and how</text>
+
+  <!-- Decision -> No -> lane3 Tag Valid -->
+  <path d="M500 1145 L500 1170 L660 1170" fill="none" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="514" y="1160" text-anchor="start" font-size="10" fill="#444441">no</text>
+  <rect x="690" y="1140" width="260" height="70" rx="8" fill="#FFFFFF" stroke="#D85A30" stroke-width="1.4"/>
+  <text x="820" y="1167" text-anchor="middle" font-size="14" font-weight="bold" fill="#4A1B0C">Tag: valid</text>
+  <text x="820" y="1185" text-anchor="middle" font-size="11" fill="#993C1D">Ready to load into target</text>
+
+  <!-- Converge Invalid / Duplicate / Valid -> Aggregate results -->
+  <path d="M820 876 L820 1290 L950 1290 L950 1300" fill="none" stroke="#444441" stroke-width="1.2"/>
+  <path d="M820 1131 L820 1290" fill="none" stroke="#444441" stroke-width="1.2"/>
+  <path d="M820 1210 L820 1290" fill="none" stroke="#444441" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Aggregate results ============ -->
+  <rect x="690" y="1300" width="260" height="76" rx="8" fill="#FFFFFF" stroke="#D85A30" stroke-width="1.4"/>
+  <text x="820" y="1325" text-anchor="middle" font-size="14" font-weight="bold" fill="#4A1B0C">Aggregate results</text>
+  <text x="820" y="1343" text-anchor="middle" font-size="11" fill="#993C1D">Counts totals: success, invalid,</text>
+  <text x="820" y="1358" text-anchor="middle" font-size="11" fill="#993C1D">duplicate, grand total</text>
+
+  <line x1="820" y1="1376" x2="820" y2="1408" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Write Excel workbook ============ -->
+  <rect x="690" y="1410" width="260" height="86" rx="8" fill="#FFFFFF" stroke="#D85A30" stroke-width="1.4"/>
+  <text x="820" y="1435" text-anchor="middle" font-size="14" font-weight="bold" fill="#4A1B0C">Write Excel workbook</text>
+  <text x="820" y="1453" text-anchor="middle" font-size="11" fill="#993C1D">Sheet 1: valid migrated data</text>
+  <text x="820" y="1468" text-anchor="middle" font-size="11" fill="#993C1D">Sheet 2: reasoning log</text>
+  <text x="820" y="1483" text-anchor="middle" font-size="10" font-style="italic" fill="#B27050">(pandas / openpyxl)</text>
+
+  <!-- Arrow: lane3 -> lane1 (back to dashboard) -->
+  <path d="M690 1453 L560 1453 L560 1552" fill="none" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Display summary metrics ============ -->
+  <rect x="50" y="1554" width="260" height="86" rx="8" fill="#FFFFFF" stroke="#378ADD" stroke-width="1.4"/>
+  <text x="180" y="1579" text-anchor="middle" font-size="14" font-weight="bold" fill="#042C53">Display summary metrics</text>
+  <text x="180" y="1597" text-anchor="middle" font-size="11" fill="#185FA5">st.metric cards: total, success,</text>
+  <text x="180" y="1612" text-anchor="middle" font-size="11" fill="#185FA5">invalid, duplicate counts</text>
+  <text x="180" y="1627" text-anchor="middle" font-size="10" font-style="italic" fill="#4E7FAE">on the Streamlit dashboard</text>
+
+  <line x1="180" y1="1640" x2="180" y2="1670" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ BOX: Download workbook ============ -->
+  <rect x="50" y="1672" width="260" height="60" rx="8" fill="#FFFFFF" stroke="#378ADD" stroke-width="1.4"/>
+  <text x="180" y="1698" text-anchor="middle" font-size="14" font-weight="bold" fill="#042C53">Download workbook</text>
+  <text x="180" y="1716" text-anchor="middle" font-size="11" fill="#185FA5">st.download_button</text>
+
+  <line x1="180" y1="1732" x2="180" y2="1745" stroke="#444441" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- ============ END NODE ============ -->
+  <circle cx="180" cy="1758" r="22" fill="#5F5E5A" stroke="#2C2C2A" stroke-width="2"/>
+  <circle cx="180" cy="1758" r="14" fill="#2C2C2A"/>
+
+  <!-- ============ LEGEND ============ -->
+  <rect x="970" y="90" width="0" height="0" fill="none"/>
+
+</svg>
